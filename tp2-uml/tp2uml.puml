@@ -1,0 +1,78 @@
+@startuml tp2uml
+' Tema moderno estilo “Enterprise”
+!theme spacelab
+' Fuente y tamaño
+skinparam classFontName "Arial"
+skinparam classFontSize 12
+' Colores para atributos y métodos
+skinparam classAttributeFontColor Black
+skinparam classAttributeFontName "Arial"
+skinparam classAttributeFontSize 12
+skinparam classMethodFontColor Black
+skinparam classMethodFontName "Arial"
+skinparam classMethodFontSize 12
+' Bordes de clases
+skinparam classBorderThickness 1
+skinparam classBorderColor Black
+skinparam classBackgroundColor #FDFDFD
+skinparam classFontColor Black
+skinparam ArrowFontColor Black
+skinparam abstractFontColor Black
+skinparam stereotypeFontColor Black
+' Métodos abstractos en cursiva
+skinparam classAttributeIconSize 0
+skinparam abstractFontStyle italic
+skinparam ArrowColor Black
+skinparam ArrowFontName "Arial"
+skinparam ArrowFontSize 11
+skinparam ArrowThickness 1
+skinparam abstractFontStyle italic
+
+
+class Empresa {
+  - nombre : String
+  - cuit : String
+  + calcularTotalSueldosNetos() : Double
+  + calcularTotalSueldosBrutos() : Double
+  + calcularTotalRetenciones() : Double
+  + liquidarSueldos() : void
+}
+
+abstract class Empleado {
+  - nombre : String
+  - direccion : String
+  - estadoCivil : String
+  - fechaNacimiento : Date
+  - sueldoBasico : Double
+  + calcularEdad() : int
+  + calcularSueldoBruto() : Double
+  + calcularRetenciones() : Double
+  + calcularSueldoNeto() : Double
+}
+
+class EmpleadoPermanente {
+  - cantidadHijos : int
+  - antiguedad : int
+}
+
+class EmpleadoTemporario {
+  - fechaFinDesignacion : Date
+  - horasExtras : int
+}
+
+class ReciboDeHaberes {
+  - nombreEmpleado : String
+  - direccionEmpleado : String
+  - fechaEmision : Date
+  - sueldoBruto : Double
+  - sueldoNeto : Double
+  - desgloseConceptos : List<String>
+}
+
+Empresa "1" o-- "*" Empleado
+Empresa "1" o-- "*" ReciboDeHaberes
+ReciboDeHaberes "*" --> "1" Empleado
+hide circle
+Empleado <|-- EmpleadoPermanente : «extends»
+Empleado <|-- EmpleadoTemporario : «extends»
+@enduml
